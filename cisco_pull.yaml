@@ -21,6 +21,3 @@ dest: "/home/cfsadmin/ansible/configs/{{ inventory_hostname }}-running-config.tx
 		
 /home/cfsadmin/ansible/configs/
 dest: "./configs/{{ inventory_hostname }}-running-config.txt"
-
-ansible all -i inventory.yaml -m ping
-ansible-playbook -i inventory.yaml read_config.yaml
