@@ -1,15 +1,16 @@
- name: Pull Cisco SMB configuration
-  hosts: all
-  gather_facts: no
 
-  tasks:
-    - name: Get running configuration
-      community.ciscosmb.command:
-        commands:
-          - show running-config
-      register: config_output
+name: Pull Cisco SMB configuration
+hosts: all
+gather_facts: no
 
-    - name: Save config to local file
-      copy:
-content: "{{ config_output.stdout[0] }}"
-dest: "/home/cfsadmin/ansible/configs/CF/CBS350/{{ inventory_hostname }}-running-config-{{ lookup('pipe','date +%Y%m%d-%H%M%S') }}.txt"
+tasks:
+  - name: Get running configuration
+    community.ciscosmb.command:
+      commands:
+        - show running-config
+    register: config_output
+
+  - name: Save config to local file
+    copy:
+      content: "{{ config_output.stdout[0] }}"
+      dest: "/home/cfsadmin/ansible/configs/CF/CBS350/{{ inventory_hostname }}-running-config-{{ lookup('pipe','date +%Y%m%d-%H%M%S') }}.txt"
