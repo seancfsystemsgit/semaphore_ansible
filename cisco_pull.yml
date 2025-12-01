@@ -16,6 +16,12 @@
           - show running-config
       register: runconfig
 
+    - name: Ensure backups directory exists
+      file:
+        path: backups
+        state: directory
+        mode: '0755'
+
     - name: Store running config to file
       copy:
         content: "{{ runconfig.stdout[0] }}"
