@@ -1,6 +1,6 @@
 - name: Pull Cisco SMB configuration
   hosts: all
-  gather_facts: no
+  gather_facts: yes
 
   tasks:
     - name: Get running configuration
