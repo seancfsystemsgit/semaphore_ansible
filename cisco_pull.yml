@@ -11,7 +11,8 @@
 
   tasks:
     - name: Get running config
-      cisco.ios.ios_command:
+      #cisco.ios.ios_command:
+      community.ciscosmb.command:
         commands:
           - show running-config
       register: runconfig
