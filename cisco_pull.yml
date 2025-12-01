@@ -1,16 +1,26 @@
+---
+- name: Read Cisco running configuration via SSH
+  hosts: cisco
+  gather_facts: no
+  connection: network_cli
 
-name: Pull Cisco SMB configuration
-hosts: all
-gather_facts: no
+  vars:
+    ansible_network_os: cisco.ios.ios
+    ansible_become: yes
+    ansible_become_method: enable
 
-tasks:
-  - name: Get running configuration
-    community.ciscosmb.command:
-      commands:
-        - show running-config
-    register: config_output
+  tasks:
+    - name: Get running config
+      cisco.ios.ios_command:
+        commands:
+          - show running-config
+      register: runconfig
 
-  - name: Save config to local file
-    copy:
-      content: "{{ config_output.stdout[0] }}"
-      dest: "/home/cfsadmin/ansible/configs/CF/CBS350/{{ inventory_hostname }}-running-config-{{ lookup('pipe','date +%Y%m%d-%H%M%S') }}.txt"
+    - name: Store running config to file
+      copy:
+        content: "{{ runconfig.stdout[0] }}"
+        dest: "backups/{{ inventory_hostname }}-running-config.txt"
+
+    - name: Print running config to screen
+      debug:
+        var: runconfig.stdout[0]
