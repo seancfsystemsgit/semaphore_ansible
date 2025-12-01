@@ -1,0 +1,28 @@
+---
+- name: Pull CBS350 running config
+  hosts: cisco
+  gather_facts: no
+  collections:
+    - community.ciscosmb
+
+  tasks:
+    - name: Ensure backups directory exists
+      file:
+        path: backups
+        state: directory
+        mode: '0755'
+
+    - name: Get running config
+      ciscosmb_command:
+        commands:
+          - show running-config
+      register: runconfig
+
+    - name: Save running config to file
+      copy:
+        content: "{{ runconfig.stdout[0] }}"
+        dest: "backups/{{ inventory_hostname }}-running-config.txt"
+
+    - name: Print running config
+      debug:
+        var: runconfig.stdout[0]
