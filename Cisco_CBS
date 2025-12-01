@@ -2,8 +2,6 @@
 - name: Pull CBS350 running config
   hosts: cisco
   gather_facts: no
-  collections:
-    - community.ciscosmb
 
   tasks:
     - name: Ensure backups directory exists
@@ -13,7 +11,7 @@
         mode: '0755'
 
     - name: Get running config
-      ciscosmb_command:
+      community.ciscosmb.ciscosmb_command:
         commands:
           - show running-config
       register: runconfig
