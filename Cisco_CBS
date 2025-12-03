@@ -16,4 +16,4 @@
 
     - name: Print running config
       debug:
-        var: runconfig.stdout[0]
+        var: config_output.stdout[0]
