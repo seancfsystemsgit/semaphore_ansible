@@ -1,6 +1,6 @@
 ---
 - name: Backup Cisco CBS350 configurations
-  hosts: cbs_switches
+  hosts: cisco
   gather_facts: no
   vars:
     backup_dir: "backups"
