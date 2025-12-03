@@ -1,10 +1,18 @@
 ---
-- name: Backup Cisco CBS350 configurations using cli_command
-  hosts: all
+- name: Backup Cisco CBS350 configurations
+  hosts: cbs_switches
   gather_facts: no
   vars:
     backup_dir: "backups"
     timestamp: "{{ lookup('pipe', 'date +%Y%m%d-%H%M%S') }}"
+
+  vars_prompt:
+    - name: ansible_user
+      prompt: "Enter switch username"
+      private: no
+    - name: ansible_password
+      prompt: "Enter switch password"
+      private: yes
 
   tasks:
     - name: Ensure backup directory exists
