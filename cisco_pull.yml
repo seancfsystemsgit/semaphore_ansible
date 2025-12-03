@@ -5,7 +5,8 @@
   connection: network_cli
 
   vars:
-    ansible_network_os: cisco.ios.ios
+    #ansible_network_os: cisco.ios.ios
+    ansible_network_os: ansible.netcommon.cisco_cbs
     ansible_become: yes
     #ansible_become_method: enable
 
