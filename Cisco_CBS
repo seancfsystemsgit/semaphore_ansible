@@ -1,13 +1,13 @@
-- name: Pull Cisco SMB configuration
+- name: Pull Cisco CBS350 running configuration
   hosts: all
   gather_facts: no
 
   tasks:
-    - name: Get full running configuration (disable paging)
+    - name: Get full running configuration (CBS350)
       community.ciscosmb.command:
         commands:
           - terminal datadump
-          - show running-config
+          - show running-config all
       register: config_output
 
     - name: Save config to local file
