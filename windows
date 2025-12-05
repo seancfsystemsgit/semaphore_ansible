@@ -1,1 +1,5 @@
-ansible windows -i inventory.ini -m win_ping
+- name: Verify Host Connectivity
+  hosts: windows
+  tasks:
+    - name: Ping all managed nodes
+      ansible.builtin.ping:
